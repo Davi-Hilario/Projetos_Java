@@ -16,12 +16,10 @@ public class Main {
         JdbcTemplate conexao = con.getConexaoDoBanco();
         List<String> metodosEncontrados = new ArrayList<>();
 
-        Servidor server =
-                conexao.queryForObject("SELECT componentes from Eyes_On_Server.Servidor where mac_address = ?",
-                        new BeanPropertyRowMapper<>(Servidor.class), "09:11:44:1F:3A:A9");
+        List<ComponenteMedida> listaComponentesMedida =
+            conexao.query("SELECT `componente`, `medida` from Eyes_On_Server.view_componentes_servidores where `mac adress` = ?;",
+            new BeanPropertyRowMapper<>(ComponenteMedida.class), "09:11:44:1F:3A:A9");
 
-        List<String> listaIndices = List.of(server.getComponentes().split(","));
-        System.out.println(listaIndices);
 
         List<String> listaComponentes = new ArrayList<>();
         for (String index: listaIndices){
