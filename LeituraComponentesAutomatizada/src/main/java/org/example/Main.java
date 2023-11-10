@@ -11,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
 
         String macAddress = "09:11:44:1F:3A:A9";
-        List<String> metodosEncontrados = new ArrayList<>();
 
         List<ViewComponenteServidor> listaComponentesServidor = ViewComponenteServidorDAO.consultarComponenteMedida(macAddress);
         List<ComponenteMedida> listaComponentesMedida = new ArrayList<>();
