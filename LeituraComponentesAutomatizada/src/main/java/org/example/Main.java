@@ -1,8 +1,15 @@
 package org.example;
 
+import com.github.britooo.looca.api.group.rede.Rede;
 import org.example.business.ComponenteMedida;
 import org.example.business.ViewComponenteServidor;
+
 import org.example.dao.ViewComponenteServidorDAO;
+
+import org.example.looca.CpuLooca;
+import org.example.looca.MemoriaLooca;
+import org.example.looca.DiscoLooca;
+import org.example.looca.RedeLooca;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +25,7 @@ public class Main {
         listaComponentesServidor.forEach(item -> {
             System.out.println(item);
             listaComponentesMedida.add(new ComponenteMedida(
-                    item.getComponente(), item.getMedida()
+                    item.getComponente(), item.getMedida(), item.getComandoJava()
             ));
         });
 

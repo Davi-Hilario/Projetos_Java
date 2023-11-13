@@ -8,6 +8,7 @@ public class ViewComponenteServidor {
     private String local;
     private String componente;
     private String medida;
+    private String comandoJava;
 
     public String getEmpresa() {
         return empresa;
@@ -65,6 +66,14 @@ public class ViewComponenteServidor {
         this.medida = medida;
     }
 
+    public String getComandoJava() {
+        return comandoJava;
+    }
+
+    public void setComandoJava(String comandoJava) {
+        this.comandoJava = comandoJava;
+    }
+
     @Override
     public String toString() {
         return """
@@ -76,6 +85,7 @@ public class ViewComponenteServidor {
                     Local: '%s'
                     Componente: '%s'
                     Medida: '%s'
+                    Comando Java: '%s'
                 }
                 """
                 .formatted
@@ -86,7 +96,8 @@ public class ViewComponenteServidor {
                     getMacAddress(),
                     getLocal(),
                     getComponente(),
-                    getMedida()
+                    getMedida(),
+                    getComandoJava()
                 );
     }
 }

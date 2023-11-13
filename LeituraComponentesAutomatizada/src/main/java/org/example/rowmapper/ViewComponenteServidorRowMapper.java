@@ -17,7 +17,7 @@ public class ViewComponenteServidorRowMapper implements RowMapper<ViewComponente
         viewComponenteServidor.setLocal(resultSet.getString("local"));
         viewComponenteServidor.setComponente(resultSet.getString("componente"));
         viewComponenteServidor.setMedida(resultSet.getString("medida"));
-
+        viewComponenteServidor.setComandoJava(resultSet.getString("comandoJava"));
         return viewComponenteServidor;
     }
 }
