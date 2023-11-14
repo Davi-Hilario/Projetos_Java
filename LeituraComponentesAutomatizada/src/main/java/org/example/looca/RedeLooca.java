@@ -25,6 +25,21 @@ public class RedeLooca {
 
     }
 
+    public static String getIpv6(){
+
+        String ipv6 = "";
+
+        for(RedeInterface i : lucas.getGrupoDeInterfaces().getInterfaces()) {
+            if (!i.getEnderecoIpv4().isEmpty()) {
+                ipv6 = i.getEnderecoIpv6().get(0);
+                break;
+            }
+        }
+
+        return ipv6;
+
+    }
+
     public static String getMacAddress(){
 
         String macAddress = "";

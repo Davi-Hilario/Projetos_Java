@@ -10,7 +10,7 @@ import java.util.List;
 public class ViewComponenteServidorDAO {
 
     private static final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
-    public static List<ViewComponenteServidor> consultarComponenteMedida(String macAddress) {
+    public static List<ViewComponenteServidor> consultarComponenteServidor(String macAddress) {
         String query = "SELECT * FROM Eyes_On_Server.view_componentes_servidores WHERE `macAddress` = ?;";
         return conexao.query(query, new ViewComponenteServidorRowMapper(), macAddress);
     }
