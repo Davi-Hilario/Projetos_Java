@@ -12,7 +12,7 @@ public class ComponenteMedidaDAO {
     private static final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
 
     public static List<ComponenteMedida> consultarComponenteMedida() {
-        String query = "SELECT * FROM Eyes_On_Server.ComponenteMedida;";
+        String query = "SELECT * FROM Eyes_On_Server.Componente_Medida;";
         return conexao.query(query, new ComponenteMedidaRowMapper());
     }
 }

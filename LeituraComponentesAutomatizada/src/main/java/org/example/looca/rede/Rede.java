@@ -1,14 +1,11 @@
-package org.example.looca;
+package org.example.looca.rede;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
 
-import java.util.List;
+public class Rede {
 
-
-public class RedeLooca {
-
-    private static final com.github.britooo.looca.api.group.rede.Rede lucas = new Looca().getRede();
+    protected static final com.github.britooo.looca.api.group.rede.Rede lucas = new Looca().getRede();
 
     public static String getIpv4(){
 
@@ -55,33 +52,4 @@ public class RedeLooca {
 
     }
 
-    public static Long getSentBytes(){
-
-        Long sentBytes = (long) 0;
-
-        for(RedeInterface i : lucas.getGrupoDeInterfaces().getInterfaces()) {
-            if (!i.getEnderecoIpv4().isEmpty()) {
-                sentBytes = i.getBytesEnviados();
-                break;
-            }
-        }
-
-        return sentBytes;
-
-    }
-
-    public static Long getReceivedBytes(){
-
-        Long receivedBytes = (long) 0;
-
-        for(RedeInterface i : lucas.getGrupoDeInterfaces().getInterfaces()) {
-            if (!i.getEnderecoIpv4().isEmpty()) {
-                receivedBytes = i.getBytesRecebidos();
-                break;
-            }
-        }
-
-        return receivedBytes;
-
-    }
 }

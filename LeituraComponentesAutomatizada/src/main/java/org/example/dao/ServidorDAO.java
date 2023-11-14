@@ -9,14 +9,14 @@ import java.util.List;
 
 public class ServidorDAO {
 
-    private final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
+    private static final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
 
-    public List<Servidor> consultarServidor(String macAddress, Integer fkEmpresa) {
+    public static List<Servidor> consultarServidor(String macAddress, Integer fkEmpresa) {
         String query = "SELECT * FROM Eyes_On_Server.Servidor WHERE mac_address = ? AND fk_empresa = ?;";
         return conexao.query(query, new ServidorRowMapper(), macAddress, fkEmpresa);
     }
 
-    public void inserirServidor
+    public static void inserirServidor
             (
                 Integer fkServer,
                 String nomeServer,

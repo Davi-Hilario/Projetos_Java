@@ -1,10 +1,14 @@
 package org.example.terminal;
 
+import org.example.business.ComponenteMedida;
+import org.example.dao.ComponenteMedidaDAO;
+import org.example.dao.ComponenteServidorDAO;
 import org.example.dao.ServidorDAO;
-import org.example.looca.RedeLooca;
 import com.github.britooo.looca.api.core.Looca;
+import org.example.looca.rede.Rede;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewDevice extends Terminal{
     public void cadastrarServidor(Integer fkEmpresa) {
@@ -13,7 +17,7 @@ public class NewDevice extends Terminal{
         String resposta;
 
         do {
-            System.out.println("Prosseguir com instalação?");
+            System.out.print("Prosseguir com instalação? [S/N] -> ");
             resposta = inputString.nextLine();
 
             if (resposta.equalsIgnoreCase("N")) {
@@ -29,7 +33,6 @@ public class NewDevice extends Terminal{
 
     public void coletarDados (Integer fkEmpresa) {
 
-        ServidorDAO server = new ServidorDAO();
         String resposta;
         String nomeServer;
         String localServer;
@@ -50,22 +53,53 @@ public class NewDevice extends Terminal{
 
         } while (!resposta.equalsIgnoreCase("S"));
 
-        server.inserirServidor
+        ServidorDAO.inserirServidor
                 (
                         fkEmpresa,
                         nomeServer,
                         localServer,
-                        RedeLooca.getIpv6(),
-                        RedeLooca.getMacAddress(),
+                        Rede.getIpv6(),
+                        Rede.getMacAddress(),
                         new Looca().getSistema().getSistemaOperacional(),
                         descricaoServer
                 );
 
-        inserirComponentes();
+        inserirComponentes(ServidorDAO.consultarServidor(Rede.getMacAddress(),fkEmpresa).get(0).getIdServidor());
 
     }
 
-    public void inserirComponentes() {
+    public void inserirComponentes(Integer idServer) {
+
+        List<ComponenteMedida> componentes = ComponenteMedidaDAO.consultarComponenteMedida();
+        List<ComponenteMedida> componentesSelecionados = new ArrayList<>();
+
+        System.out.println("\nSelecione os componentes que seja monitorar:");
+
+        int i = 0;
+        int resposta;
+
+        do {
+            if (!componentes.isEmpty()) {
+                for (i = 0; i <= componentes.size() - 1; i++) {
+                    System.out.printf("%d - %s%n", i + 1, componentes.get(i).getNomeComponenteMedida());
+                }
+            }
+            System.out.printf("%d - Finalizar%n", i + 1);
+            i++;
+
+            resposta = inputNumber.nextInt();
+
+            if (resposta == i) {
+                break;
+            }
+
+            componentesSelecionados.add(componentes.get(resposta - 1));
+            componentes.remove(componentes.get(resposta - 1));
+        } while (true);
+
+        componentesSelecionados.forEach(item -> {
+            ComponenteServidorDAO.inserirComponenteServidor(idServer,item.getIdComponenteMedida());
+        });
 
     }
 }
