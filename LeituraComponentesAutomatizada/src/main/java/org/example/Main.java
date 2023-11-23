@@ -1,17 +1,15 @@
 package org.example;
 
-import org.example.business.ComponenteMedidaComando;
 import org.example.business.ViewComponenteServidor;
 
 import org.example.dao.ServidorDAO;
 import org.example.dao.ViewComponenteServidorDAO;
+import org.example.enumerators.ComponentesMonitorados;
 import org.example.interfaces.Executavel;
 import org.example.looca.rede.Rede;
 import org.example.terminal.Login;
 import org.example.terminal.NewDevice;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,46 +26,22 @@ public class Main {
             promptNewDevice.cadastrarServidor(fkEmpresa);
         }
 
+        System.out.println("Iniciando leitura dos dados!");
+
+        List<ComponentesMonitorados> componentesMonitorados = new ArrayList<>(List.of(ComponentesMonitorados.values()));
         List<ViewComponenteServidor> listaComponentesServidor = ViewComponenteServidorDAO.consultarComponenteServidor(macAddress);
-        List<ComponenteMedidaComando> listaComponentesMedida = new ArrayList<>();
+        List<Executavel> executaveis = new ArrayList<>();
 
-        listaComponentesServidor.forEach(item -> {
-            System.out.println(item);
-            listaComponentesMedida.add(new ComponenteMedidaComando(
-                    item.getComponente(), item.getMedida(), item.getComandoJava()
-            ));
-        });
-
-
-        List<Executavel> componentesExecutaveis = new ArrayList<>();
-
-        listaComponentesMedida.forEach(item -> {
-
-            Class<?> classe = null;
-            try {
-                classe = Class.forName(item.getComando());
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+        for (ComponentesMonitorados comp : componentesMonitorados) {
+            for (ViewComponenteServidor compServidor : listaComponentesServidor) {
+                if (comp.getId().equals(compServidor.getIdComponenteMedida())) {
+                    executaveis.add(comp.getMetodo());
+                    break;
+                }
             }
-            Constructor<?> construtor = null;
-            try {
-                construtor = classe.getConstructor();
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-            Object instancia;
-            try {
-                instancia = construtor.newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-
-            componentesExecutaveis.add((Executavel) instancia);
-        });
-
-        while (true) {
-            componentesExecutaveis.forEach(Executavel::executar);
         }
+
+        executaveis.forEach(Executavel::executar);
 
     }
 }

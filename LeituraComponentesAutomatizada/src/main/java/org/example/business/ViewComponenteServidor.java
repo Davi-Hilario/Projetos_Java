@@ -6,9 +6,9 @@ public class ViewComponenteServidor {
     private String sistemaOperacional;
     private String macAddress;
     private String local;
+    private Integer idComponenteMedida;
     private String componente;
     private String medida;
-    private String comandoJava;
 
     public String getEmpresa() {
         return empresa;
@@ -50,6 +50,14 @@ public class ViewComponenteServidor {
         this.local = local;
     }
 
+    public Integer getIdComponenteMedida() {
+        return idComponenteMedida;
+    }
+
+    public void setIdComponenteMedida(Integer idComponenteMedida) {
+        this.idComponenteMedida = idComponenteMedida;
+    }
+
     public String getComponente() {
         return componente;
     }
@@ -66,14 +74,6 @@ public class ViewComponenteServidor {
         this.medida = medida;
     }
 
-    public String getComandoJava() {
-        return comandoJava;
-    }
-
-    public void setComandoJava(String comandoJava) {
-        this.comandoJava = comandoJava;
-    }
-
     @Override
     public String toString() {
         return """
@@ -83,9 +83,9 @@ public class ViewComponenteServidor {
                     Sistema Operacional: '%s'
                     Mac Address: '%s'
                     Local: '%s'
+                    ID Componente Medida: %d
                     Componente: '%s'
                     Medida: '%s'
-                    Comando Java: '%s'
                 }
                 """
                 .formatted
@@ -95,9 +95,9 @@ public class ViewComponenteServidor {
                     getSistemaOperacional(),
                     getMacAddress(),
                     getLocal(),
+                    getIdComponenteMedida(),
                     getComponente(),
-                    getMedida(),
-                    getComandoJava()
+                    getMedida()
                 );
     }
 }

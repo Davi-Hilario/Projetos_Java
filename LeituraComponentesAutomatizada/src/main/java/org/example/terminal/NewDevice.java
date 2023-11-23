@@ -1,10 +1,9 @@
 package org.example.terminal;
 
-import org.example.business.ComponenteMedida;
-import org.example.dao.ComponenteMedidaDAO;
 import org.example.dao.ComponenteServidorDAO;
 import org.example.dao.ServidorDAO;
 import com.github.britooo.looca.api.core.Looca;
+import org.example.enumerators.ComponentesMonitorados;
 import org.example.looca.rede.Rede;
 
 import java.util.ArrayList;
@@ -70,22 +69,21 @@ public class NewDevice extends Terminal{
 
     public void inserirComponentes(Integer idServer) {
 
-        List<ComponenteMedida> componentes = ComponenteMedidaDAO.consultarComponenteMedida();
-        List<ComponenteMedida> componentesSelecionados = new ArrayList<>();
+        List<ComponentesMonitorados> componentesMonitorados = new ArrayList<>(List.of(ComponentesMonitorados.values()));
+        List<ComponentesMonitorados> componentesSelecionados = new ArrayList<>();
 
         System.out.println("\nSelecione os componentes que seja monitorar:");
 
-        int i = 0;
+        int i;
         int resposta;
 
         do {
-            if (!componentes.isEmpty()) {
-                for (i = 0; i <= componentes.size() - 1; i++) {
-                    System.out.printf("%d - %s%n", i + 1, componentes.get(i).getNomeComponenteMedida());
-                }
+            for (i = 0; i < componentesMonitorados.size(); i++) {
+                System.out.printf("%d - %s%n", i + 1, componentesMonitorados.get(i).getNome());
             }
-            System.out.printf("%d - Finalizar%n", i + 1);
+
             i++;
+            System.out.printf("%d - Finalizar%n", i);
 
             resposta = inputNumber.nextInt();
 
@@ -93,12 +91,13 @@ public class NewDevice extends Terminal{
                 break;
             }
 
-            componentesSelecionados.add(componentes.get(resposta - 1));
-            componentes.remove(componentes.get(resposta - 1));
+            componentesSelecionados.add(componentesMonitorados.get(resposta - 1));
+            componentesMonitorados.remove(componentesMonitorados.get(resposta - 1));
+
         } while (true);
 
         componentesSelecionados.forEach(item -> {
-            ComponenteServidorDAO.inserirComponenteServidor(idServer,item.getIdComponenteMedida());
+            ComponenteServidorDAO.inserirComponenteServidor(idServer,item.getId());
         });
 
     }
