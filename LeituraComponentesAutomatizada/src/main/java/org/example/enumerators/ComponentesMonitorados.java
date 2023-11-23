@@ -10,25 +10,19 @@ import org.example.looca.rede.RedeBytesRecebidos;
 
 public enum ComponentesMonitorados {
 
-    usoCpuPorcentagem(1,"Uso da CPU (%)", new CpuUso()),
-    frequenciaCpu(2,"Frequência da CPU (Htz)", new CpuFrequencia()),
-    usoMemoriaPorcentagem(3,"Uso da Memória (%)", new MemoriaUso()),
-    usoDiscoPorcentagem(4, "Uso do Disco (%)", new DiscoUso()),
-    bytesEnviadosRede(5, "Bytes Enviados", new RedeBytesEnviados()),
-    bytesRecebidosRede(6, "Bytes Recebidos", new RedeBytesRecebidos());
+    USO_PORCENTAGEM_CPU("Uso da CPU (%)", new CpuUso()),
+    FREQUENCIA_CPU("Frequência da CPU (Htz)", new CpuFrequencia()),
+    USO_MEMORIA_PORCENTAGEM("Uso da Memória (%)", new MemoriaUso()),
+    USO_DISCO_PORCENTAGEM( "Uso do Disco (%)", new DiscoUso()),
+    BYTES_ENVIADOS_REDE( "Bytes Enviados", new RedeBytesEnviados()),
+    BYTES_RECEBIDOS_REDE( "Bytes Recebidos", new RedeBytesRecebidos());
 
-    private final Integer id;
     private final String nome;
     private final Executavel metodo;
 
-    ComponentesMonitorados(Integer id, String nome, Executavel metodo) {
-        this.id = id;
+    ComponentesMonitorados(String nome, Executavel metodo) {
         this.nome = nome;
         this.metodo = metodo;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getNome() {

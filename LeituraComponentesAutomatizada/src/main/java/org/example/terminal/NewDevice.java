@@ -1,5 +1,6 @@
 package org.example.terminal;
 
+import org.example.dao.ComponenteMedidaDAO;
 import org.example.dao.ComponenteServidorDAO;
 import org.example.dao.ServidorDAO;
 import com.github.britooo.looca.api.core.Looca;
@@ -97,7 +98,7 @@ public class NewDevice extends Terminal{
         } while (true);
 
         componentesSelecionados.forEach(item -> {
-            ComponenteServidorDAO.inserirComponenteServidor(idServer,item.getId());
+            ComponenteServidorDAO.inserirComponenteServidor(idServer, ComponenteMedidaDAO.coletarId(item.name()).get(0).getIdComponenteMedida());
         });
 
     }

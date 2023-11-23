@@ -15,7 +15,7 @@ public class ViewComponenteServidorRowMapper implements RowMapper<ViewComponente
         viewComponenteServidor.setSistemaOperacional(resultSet.getString("sistemaOperacional"));
         viewComponenteServidor.setMacAddress(resultSet.getString("macAddress"));
         viewComponenteServidor.setLocal(resultSet.getString("local"));
-        viewComponenteServidor.setIdComponenteMedida(resultSet.getInt("idComponenteMedida"));
+        viewComponenteServidor.setTipo(resultSet.getString("tipo"));
         viewComponenteServidor.setComponente(resultSet.getString("componente"));
         viewComponenteServidor.setMedida(resultSet.getString("medida"));
         return viewComponenteServidor;

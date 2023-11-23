@@ -6,7 +6,7 @@ public class ViewComponenteServidor {
     private String sistemaOperacional;
     private String macAddress;
     private String local;
-    private Integer idComponenteMedida;
+    private String tipo;
     private String componente;
     private String medida;
 
@@ -50,12 +50,12 @@ public class ViewComponenteServidor {
         this.local = local;
     }
 
-    public Integer getIdComponenteMedida() {
-        return idComponenteMedida;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setIdComponenteMedida(Integer idComponenteMedida) {
-        this.idComponenteMedida = idComponenteMedida;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getComponente() {
@@ -83,7 +83,7 @@ public class ViewComponenteServidor {
                     Sistema Operacional: '%s'
                     Mac Address: '%s'
                     Local: '%s'
-                    ID Componente Medida: %d
+                    Tipo: %s
                     Componente: '%s'
                     Medida: '%s'
                 }
@@ -95,7 +95,7 @@ public class ViewComponenteServidor {
                     getSistemaOperacional(),
                     getMacAddress(),
                     getLocal(),
-                    getIdComponenteMedida(),
+                    getTipo(),
                     getComponente(),
                     getMedida()
                 );

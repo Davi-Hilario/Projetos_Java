@@ -1,5 +1,6 @@
 package org.example;
 
+import com.github.britooo.looca.api.core.Looca;
 import org.example.business.ViewComponenteServidor;
 
 import org.example.dao.ServidorDAO;
@@ -34,7 +35,7 @@ public class Main {
 
         for (ComponentesMonitorados comp : componentesMonitorados) {
             for (ViewComponenteServidor compServidor : listaComponentesServidor) {
-                if (comp.getId().equals(compServidor.getIdComponenteMedida())) {
+                if (comp.name().equalsIgnoreCase(compServidor.getTipo())) {
                     executaveis.add(comp.getMetodo());
                     break;
                 }
