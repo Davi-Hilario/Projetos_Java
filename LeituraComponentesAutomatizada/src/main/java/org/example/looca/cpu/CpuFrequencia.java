@@ -1,10 +1,8 @@
 package org.example.looca.cpu;
 
-import org.example.interfaces.Executavel;
-
-public class CpuFrequencia extends Cpu implements Executavel {
+public class CpuFrequencia extends Cpu {
     @Override
-    public void executar() {
-        System.out.println(super.lucas.getFrequencia());
+    public Double executar() {
+        return super.lucas.getFrequencia().doubleValue();
     }
 }

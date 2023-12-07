@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ViewLoginRowMapper implements RowMapper<ViewLogin> {
+public class    ViewLoginRowMapper implements RowMapper<ViewLogin> {
     @Override
     public ViewLogin mapRow(ResultSet resultSet, int i) throws SQLException {
         ViewLogin viewLogin = new ViewLogin();

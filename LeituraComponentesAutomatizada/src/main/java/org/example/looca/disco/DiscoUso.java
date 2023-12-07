@@ -1,18 +1,17 @@
 package org.example.looca.disco;
 
 import com.github.britooo.looca.api.group.discos.Volume;
-import org.example.interfaces.Executavel;
 
-public class DiscoUso extends Disco implements Executavel {
+public class DiscoUso extends Disco  {
     @Override
-    public void executar() {
+    public Double executar() {
         Long totalDisco = super.lucas.getTamanhoTotal();
-        Long discoDisponivel = (long) 0;
+        Long discoDisponivel = 0L;
 
         for(Volume v : super.lucas.getVolumes()) {
             discoDisponivel += v.getDisponivel();
         }
 
-        System.out.println(discoDisponivel);
+        return discoDisponivel.doubleValue();
     }
 }

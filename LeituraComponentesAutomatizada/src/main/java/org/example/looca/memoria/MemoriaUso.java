@@ -1,11 +1,8 @@
 package org.example.looca.memoria;
 
-import org.example.interfaces.Executavel;
-
-public class MemoriaUso extends Memoria implements Executavel {
+public class MemoriaUso extends Memoria {
     @Override
-    public void executar() {
-        Double memoriaEmUso = (double) ((super.lucas.getEmUso() / super.lucas.getTotal()) * 100);
-        System.out.println(memoriaEmUso);
+    public Double executar() {
+        return (((double) super.lucas.getEmUso() / (double) super.lucas.getTotal()) * 100);
     }
 }

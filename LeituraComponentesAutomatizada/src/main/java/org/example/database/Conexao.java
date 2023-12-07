@@ -16,7 +16,7 @@ public class Conexao {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(dotenv.get("DRIVER_DB"));
         dataSource.setUrl(dotenv.get("URL_DB"));
-        dataSource.setUsername(dotenv.get("USUARIO_DB"));
+        dataSource.setUsername(dotenv.get("USUARIO_DB"));   
         dataSource.setPassword(dotenv.get("SENHA_DB"));
 
         conexaoDoBanco = new JdbcTemplate(dataSource);

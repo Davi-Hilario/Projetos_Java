@@ -1,6 +1,6 @@
 package org.example.enumerators;
 
-import org.example.interfaces.Executavel;
+import org.example.interfaces.Monitoravel;
 import org.example.looca.cpu.CpuFrequencia;
 import org.example.looca.cpu.CpuUso;
 import org.example.looca.disco.DiscoUso;
@@ -18,9 +18,9 @@ public enum ComponentesMonitorados {
     BYTES_RECEBIDOS_REDE( "Bytes Recebidos", new RedeBytesRecebidos());
 
     private final String nome;
-    private final Executavel metodo;
+    private final Monitoravel metodo;
 
-    ComponentesMonitorados(String nome, Executavel metodo) {
+    ComponentesMonitorados(String nome, Monitoravel metodo) {
         this.nome = nome;
         this.metodo = metodo;
     }
@@ -29,7 +29,7 @@ public enum ComponentesMonitorados {
         return nome;
     }
 
-    public Executavel getMetodo() {
+    public Monitoravel getMetodo() {
         return metodo;
     }
 }

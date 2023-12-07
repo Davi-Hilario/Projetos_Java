@@ -1,12 +1,11 @@
 package org.example;
 
-import com.github.britooo.looca.api.core.Looca;
 import org.example.business.ViewComponenteServidor;
 
 import org.example.dao.ServidorDAO;
 import org.example.dao.ViewComponenteServidorDAO;
 import org.example.enumerators.ComponentesMonitorados;
-import org.example.interfaces.Executavel;
+import org.example.interfaces.Monitoravel;
 import org.example.looca.rede.Rede;
 import org.example.terminal.Login;
 import org.example.terminal.NewDevice;
@@ -31,7 +30,7 @@ public class Main {
 
         List<ComponentesMonitorados> componentesMonitorados = new ArrayList<>(List.of(ComponentesMonitorados.values()));
         List<ViewComponenteServidor> listaComponentesServidor = ViewComponenteServidorDAO.consultarComponenteServidor(macAddress);
-        List<Executavel> executaveis = new ArrayList<>();
+        List<Monitoravel> executaveis = new ArrayList<>();
 
         for (ComponentesMonitorados comp : componentesMonitorados) {
             for (ViewComponenteServidor compServidor : listaComponentesServidor) {
@@ -42,7 +41,7 @@ public class Main {
             }
         }
 
-        executaveis.forEach(Executavel::executar);
+        executaveis.forEach(Monitoravel::executar);
 
     }
 }

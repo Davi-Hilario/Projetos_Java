@@ -1,11 +1,10 @@
 package org.example.looca.rede;
 
 import com.github.britooo.looca.api.group.rede.RedeInterface;
-import org.example.interfaces.Executavel;
 
-public class RedeBytesRecebidos extends Rede implements Executavel {
+public class RedeBytesRecebidos extends Rede{
     @Override
-    public void executar() {
+    public Double executar() {
         Long receivedBytes = (long) 0;
 
         for(RedeInterface i : lucas.getGrupoDeInterfaces().getInterfaces()) {
@@ -15,6 +14,6 @@ public class RedeBytesRecebidos extends Rede implements Executavel {
             }
         }
 
-        System.out.println(receivedBytes);
+        return receivedBytes.doubleValue();
     }
 }
