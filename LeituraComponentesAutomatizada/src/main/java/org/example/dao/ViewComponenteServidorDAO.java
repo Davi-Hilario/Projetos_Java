@@ -10,9 +10,14 @@ import java.util.List;
 public class ViewComponenteServidorDAO {
 
     private static final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
-    public static List<ViewComponenteServidor> consultarComponenteServidor(String macAddress) {
-        String query = "SELECT * FROM Eyes_On_Server.view_componentes_servidores WHERE `macAddress` = ?;";
+    public List<ViewComponenteServidor> consultarComponenteServidor(String macAddress) {
+        String query = "SELECT * FROM Desafio_Java.View_Componentes_Servidores WHERE `Mac-Address` = ?;";
         return conexao.query(query, new ViewComponenteServidorRowMapper(), macAddress);
+    }
+
+    public ViewComponenteServidor coletarIdComponenteServidor(String tipo, String macAddress) {
+        String query = "SELECT * FROM Desafio_Java.View_Componentes_Servidores WHERE `Tipo` = ? AND `Mac-Address` = ?;";
+        return conexao.queryForObject(query, new ViewComponenteServidorRowMapper(), tipo, macAddress);
     }
 
 }

@@ -1,21 +1,22 @@
 package org.example.business;
 
 public class ViewComponenteServidor {
-    private String empresa;
     private String servidor;
     private String sistemaOperacional;
     private String macAddress;
-    private String local;
     private String tipo;
+    private Integer idComponenteServidor;
     private String componente;
     private String medida;
 
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public ViewComponenteServidor(String servidor, String sistemaOperacional, String macAddress, String tipo, Integer idComponenteServidor, String componente, String medida) {
+        this.servidor = servidor;
+        this.sistemaOperacional = sistemaOperacional;
+        this.macAddress = macAddress;
+        this.tipo = tipo;
+        this.idComponenteServidor = idComponenteServidor;
+        this.componente = componente;
+        this.medida = medida;
     }
 
     public String getServidor() {
@@ -42,20 +43,20 @@ public class ViewComponenteServidor {
         this.macAddress = macAddress;
     }
 
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
-
     public String getTipo() {
         return tipo;
     }
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Integer getIdComponenteServidor() {
+        return idComponenteServidor;
+    }
+
+    public void setIdComponenteServidor(Integer idComponenteServidor) {
+        this.idComponenteServidor = idComponenteServidor;
     }
 
     public String getComponente() {
@@ -76,28 +77,13 @@ public class ViewComponenteServidor {
 
     @Override
     public String toString() {
-        return """
-                {
-                    Empresa: '%s'
-                    Servidor: '%s'
-                    Sistema Operacional: '%s'
-                    Mac Address: '%s'
-                    Local: '%s'
-                    Tipo: %s
-                    Componente: '%s'
-                    Medida: '%s'
-                }
-                """
-                .formatted
-                (
-                    getEmpresa(),
-                    getServidor(),
-                    getSistemaOperacional(),
-                    getMacAddress(),
-                    getLocal(),
-                    getTipo(),
-                    getComponente(),
-                    getMedida()
-                );
+        StringBuffer string = new StringBuffer();
+        string.append("Servidor: ").append(servidor).append('\n');
+        string.append("Sistema Operacional: ").append(sistemaOperacional).append('\n');
+        string.append("Mac-Address: ").append(macAddress).append('\n');
+        string.append("Tipo: ").append(tipo).append('\n');
+        string.append("Componente: ").append(componente).append('\n');
+        string.append("Medida: ").append(medida).append('\n');
+        return string.toString();
     }
 }

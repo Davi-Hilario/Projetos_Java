@@ -9,11 +9,9 @@ CREATE TABLE IF NOT EXISTS Desafio_Java.Servidor
 (
     id_servidor INT PRIMARY KEY AUTO_INCREMENT,
     nome_servidor VARCHAR(120),
-    local_servidor VARCHAR(120),
     ipv6_servidor VARCHAR(39),
     mac_address CHAR(17),
-    so_servidor VARCHAR(120),
-    descricao VARCHAR(50)
+    so_servidor VARCHAR(120)
 );
 
 -- Tabela Componente 
@@ -111,7 +109,6 @@ SELECT
 	s.nome_servidor `Servidor`, 
     s.so_servidor `SO`,
     s.mac_address `Mac-Address`,
-    s.local_servidor `Local`,
     cm.tipo `Tipo`,
     cs.id_componente_servidor `IdComponenteServidor`,
     c.nome_componente `Componente`,

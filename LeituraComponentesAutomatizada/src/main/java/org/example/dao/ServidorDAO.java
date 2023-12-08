@@ -3,6 +3,7 @@ package org.example.dao;
 import org.example.business.Servidor;
 import org.example.database.Conexao;
 import org.example.rowmapper.ServidorRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
@@ -11,36 +12,18 @@ public class ServidorDAO {
 
     private static final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
 
-    public static List<Servidor> consultarServidor(String macAddress, Integer fkEmpresa) {
-        String query = "SELECT * FROM Eyes_On_Server.Servidor WHERE mac_address = ? AND fk_empresa = ?;";
-        return conexao.query(query, new ServidorRowMapper(), macAddress, fkEmpresa);
+    public Servidor consultarServidor(String macAddress) {
+        String query = "SELECT * FROM Desafio_Java.Servidor WHERE mac_address = ?;";
+        try {
+            return conexao.queryForObject(query, new ServidorRowMapper(), macAddress);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
-    public static void inserirServidor
-            (
-                Integer fkServer,
-                String nomeServer,
-                String localServer,
-                String ipv6Server,
-                String macAddress,
-                String soServer,
-                String descServer
-            )
+    public void inserirServidor(String nomeServer, String ipv6Server, String macAddress, String soServer)
     {
-        String query = """
-                INSERT INTO Eyes_On_Server.Servidor VALUES
-                (NULL,?,?,?,?,?,?,?);
-                """;
-        conexao.update
-                (
-                        query,
-                        fkServer,
-                        nomeServer,
-                        localServer,
-                        ipv6Server,
-                        macAddress,
-                        soServer,
-                        descServer
-                );
+        String query = "INSERT INTO Desafio_Java.Servidor VALUES (NULL,?,?,?,?);";
+        conexao.update(query, nomeServer, ipv6Server, macAddress, soServer);
     }
 }

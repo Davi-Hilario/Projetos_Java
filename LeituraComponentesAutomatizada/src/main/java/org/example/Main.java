@@ -1,47 +1,19 @@
 package org.example;
 
-import org.example.business.ViewComponenteServidor;
 
-import org.example.dao.ServidorDAO;
-import org.example.dao.ViewComponenteServidorDAO;
-import org.example.enumerators.ComponentesMonitorados;
-import org.example.interfaces.Monitoravel;
-import org.example.looca.rede.Rede;
-import org.example.terminal.Login;
-import org.example.terminal.NewDevice;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.example.leitura.Agendamento;
+import org.example.leitura.Leitura;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        Login promptLogin = new Login();
-        NewDevice promptNewDevice = new NewDevice();
+        Leitura app = new Leitura();
+        app.identificarMaquina();
 
-        Integer fkEmpresa = promptLogin.loginForm().get(0).getIdEmpresa();
-        String macAddress = Rede.getMacAddress();
+        Thread.sleep(5000);
 
-        if (ServidorDAO.consultarServidor(macAddress, fkEmpresa).isEmpty()) {
-            promptNewDevice.cadastrarServidor(fkEmpresa);
-        }
-
-        System.out.println("Iniciando leitura dos dados!");
-
-        List<ComponentesMonitorados> componentesMonitorados = new ArrayList<>(List.of(ComponentesMonitorados.values()));
-        List<ViewComponenteServidor> listaComponentesServidor = ViewComponenteServidorDAO.consultarComponenteServidor(macAddress);
-        List<Monitoravel> executaveis = new ArrayList<>();
-
-        for (ComponentesMonitorados comp : componentesMonitorados) {
-            for (ViewComponenteServidor compServidor : listaComponentesServidor) {
-                if (comp.name().equalsIgnoreCase(compServidor.getTipo())) {
-                    executaveis.add(comp.getMetodo());
-                    break;
-                }
-            }
-        }
-
-        executaveis.forEach(Monitoravel::executar);
+        Agendamento agendamento = new Agendamento();
+        agendamento.run();
 
     }
 }
