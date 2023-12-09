@@ -1,12 +1,15 @@
 package org.example.leitura;
 
+import com.slack.api.methods.SlackApiException;
+import org.example.alertas.Alertas;
+import org.example.business.ComponenteMedida;
 import org.example.business.Servidor;
 import org.example.business.ViewComponenteServidor;
 import org.example.dao.*;
 import org.example.enumerators.ComponentesMonitorados;
-import org.example.interfaces.Monitoravel;
 import org.example.utils.InformacoesMaquina;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +84,7 @@ public class Leitura {
                 componenteServidorDAO.inserirComponenteServidor
                         (
                                 idServer,
-                                componenteMedidaDAO.coletarId(item.name()).getIdComponenteMedida()
+                                componenteMedidaDAO.coletarComponenteMedida(item.name()).getIdComponenteMedida()
                         );
             });
             System.out.println("Componentes cadastrados com sucesso!");
@@ -132,12 +135,23 @@ public class Leitura {
 
     public void iniciarLeitura(List<ComponentesMonitorados> monitoraveis){
         LocalDateTime momento = LocalDateTime.now();
+        Alertas alertas = new Alertas();
+
+        Servidor server = new ServidorDAO().consultarServidor(this.macAddress);
 
         System.out.println(momento);
         monitoraveis.forEach(item -> {
             double valor = (double) Math.round(item.getMetodo().executar());
             System.out.println(item.getNome() + " -> " + valor);
+
             inserirRegistro(valor, item, momento);
+
+            try {
+                alertas.verificarMetricas(valor, item, server);
+            } catch (SlackApiException | IOException e) {
+                throw new RuntimeException(e);
+            }
+
         });
         System.out.println("\n");
 
@@ -153,4 +167,5 @@ public class Leitura {
 
         registroDAO.inserirRegistro(idComponenteServidor, valor, momento);
     }
+
 }

@@ -6,12 +6,10 @@ import org.example.rowmapper.ComponenteMedidaRowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.List;
-
 public class ComponenteMedidaDAO {
     private static final JdbcTemplate conexao = new Conexao().getConexaoDoBanco();
 
-    public ComponenteMedida coletarId(String tipo) {
+    public ComponenteMedida coletarComponenteMedida(String tipo) {
         String query = "SELECT * FROM Desafio_Java.Componente_Medida WHERE tipo = ?;";
         try {
             return conexao.queryForObject(query, new ComponenteMedidaRowMapper(), tipo);
