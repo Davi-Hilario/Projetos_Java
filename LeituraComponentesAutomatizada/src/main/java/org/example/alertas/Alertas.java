@@ -30,7 +30,7 @@ public class Alertas {
         boolean alerta = false;
 
         if (metricaEmergencia != 0 && metricaPerigo != 0 && metricaPrevencao != 0) {
-            if (valor + 80 >= metricaEmergencia) {
+            if (valor >= metricaEmergencia) {
                 nivelAlerta += "Emergência ";
                 alerta = true;
             } else if (valor >= metricaPerigo) {
